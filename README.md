@@ -47,7 +47,7 @@ scripts/
 ├── deploy.sh
 └── build-firmware.sh
 
-## Q-SYS Build Infrastructure
+##Build Infrastructure
 
 - Jenkins agents in Azure
 - Build artifacts in Azure Storage
