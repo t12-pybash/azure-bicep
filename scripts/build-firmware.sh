@@ -9,16 +9,16 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 
 mkdir -p output
 
-echo "📦 Preparing build environment..."
+echo " Preparing build environment..."
 sleep 1
 
-echo "🔧 Cross-compiling for ARM64..."
+echo " Cross-compiling for ARM64..."
 sleep 2
 
-echo "🧪 Running unit tests..."
+echo " Running unit tests..."
 sleep 1
 
-echo "📝 Creating manifest..."
+echo " Creating manifest..."
 cat > output/manifest.json << MANIFEST
 {
   "platform": "${PLATFORM}",
@@ -29,12 +29,12 @@ cat > output/manifest.json << MANIFEST
 }
 MANIFEST
 
-echo "📦 Packaging firmware..."
+echo " Packaging firmware..."
 dd if=/dev/urandom of=output/firmware-${PLATFORM}-v${VERSION}.bin bs=1M count=28 2>/dev/null
 tar -czf output/firmware-${PLATFORM}-v${VERSION}.tar.gz -C output \
     firmware-${PLATFORM}-v${VERSION}.bin manifest.json
 
 echo ""
-echo "✅ Build Complete!"
+echo " Build Complete!"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 ls -lh output/
