@@ -5,32 +5,32 @@ PROJECT_NAME="qscbuild"
 LOCATION="westeurope"
 RESOURCE_GROUP="${PROJECT_NAME}-demo-rg"
 
-echo "🚀 Deploying Jenkins Build Agent Infrastructure"
+echo " Deploying Jenkins Build Agent Infrastructure"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 # Check Azure login
 if ! az account show &> /dev/null; then
-    echo "❌ Not logged in. Run: az login"
+    echo " Not logged in. Run: az login"
     exit 1
 fi
 
 # Check SSH key
 if [ ! -f ~/.ssh/id_rsa.pub ]; then
-    echo "❌ No SSH key found. Generate with: ssh-keygen -t rsa -b 4096"
+    echo " No SSH key found. Generate with: ssh-keygen -t rsa -b 4096"
     exit 1
 fi
 
 SSH_KEY=$(cat ~/.ssh/id_rsa.pub)
 
 # Create resource group
-echo "📦 Creating resource group..."
+echo " Creating resource group..."
 az group create \
     --name "${RESOURCE_GROUP}" \
     --location "${LOCATION}" \
     --output table
 
 # Deploy infrastructure
-echo "🏗️  Deploying Bicep templates..."
+echo " Deploying Bicep templates..."
 az deployment group create \
     --resource-group "${RESOURCE_GROUP}" \
     --template-file bicep/main.bicep \
@@ -50,7 +50,7 @@ STORAGE=$(az deployment group show \
     --query properties.outputs.storageAccountName.value -o tsv)
 
 echo ""
-echo "✅ Deployment Complete!"
+echo " Deployment Complete!"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "VM IP:      ${VM_IP}"
 echo "Storage:    ${STORAGE}"
